@@ -35,8 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Moq">
       <HintPath>External\Moq\Moq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -58,6 +57,7 @@
     <Compile Include="ControllerTestContext.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IActionExpectation.cs" />
+    <Compile Include="IpConverter.cs" />
     <Compile Include="IRouteExpectation.cs" />
     <Compile Include="ISpecifyRouteCollection.cs" />
     <Compile Include="ISpecifyUrl.cs" />

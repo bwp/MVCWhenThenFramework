@@ -284,14 +284,21 @@ namespace MVCWhenThenFramework
 
         }
 
-        public static HttpContext FakeHttpContext(string userHostAddress = "166777210", string url = null, string queryString = null)
+        public static HttpContext FakeHttpContext(string userHostAddress, string url = null)
         {
             if (string.IsNullOrEmpty(url))
             {
                 url = "http://google.com";
             }
 
-            if (string.IsNullOrEmpty(queryString))
+            string queryString;
+
+            int iqs = url.IndexOf('?');
+
+            if (iqs >= 0)
+            {
+                queryString = (iqs < url.Length - 1) ? url.Substring(iqs + 1) : "";
+            }else
             {
                 queryString = "";
             }

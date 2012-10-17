@@ -41,7 +41,7 @@ namespace MVCWhenThenFramework
         {
             HttpCookieCollection cookies = new HttpCookieCollection();
             NameValueCollection formData = new NameValueCollection();
-            const string ip = "166777210"; // US ip 
+            const string ip = "127.0.0.1"; // US ip 
 
             Context = new Mock<HttpContextBase> { CallBase = true };
             Request = new Mock<HttpRequestBase>(MockBehavior.Strict) { CallBase = true };

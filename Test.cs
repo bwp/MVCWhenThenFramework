@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -8,20 +9,21 @@ namespace MVCWhenThenFramework
     {
         /// <summary>
         /// Provide a controller to test
+        /// QueryString is extracted from URL automatically if it exists
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="controller"></param>
         /// <param name="useHttpContextConstructor"> </param>
         /// <param name="url"> </param>
-        /// <param name="queryString"> </param>
         /// <param name="userHostAddress"> </param>
         /// <returns></returns>
         public static ControllerTestContext<T> This<T>(T controller, 
-            string url = null, string queryString = null, bool useHttpContextConstructor = true,
-            string userHostAddress = "166777210") where T : Controller
+            string url = null, bool useHttpContextConstructor = true,
+            string userHostAddress = "127.0.0.1") where T : Controller
         {
+
             MockHttpContextContainer container = useHttpContextConstructor == false
-                ? new MockHttpContextContainer(userHostAddress) : new MockHttpContextNewContainer(url, queryString, userHostAddress);
+                ? new MockHttpContextContainer(userHostAddress) : new MockHttpContextNewContainer(url: url, userHostAddress: userHostAddress);
             
             var controllerEx = new ControllerTestContext<T>
                                    {
@@ -39,8 +41,8 @@ namespace MVCWhenThenFramework
 
         public static ControllerTestContext<T> This<T>(T controller, HttpVerbs verb, string cookieNameToSet = null,
             HttpCookieCollection cookies = null, string userName = null, 
-            bool useHttpContextConstructor = true, string url = null, 
-            string queryString = null, string userHostAddress = "166777210") where T : Controller
+            bool useHttpContextConstructor = true, string url = null,
+            string queryString = null, string userHostAddress = "127.0.0.1") where T : Controller
         {
             var controllerEx = new ControllerTestContext<T>();
 
@@ -50,11 +52,11 @@ namespace MVCWhenThenFramework
             {
                 controllerEx.MockContext = useHttpContextConstructor == false
                                                ? new MockHttpContextContainer(userName, verb, userHostAddress)
-                                               : new MockHttpContextNewContainer(userName, verb, userHostAddress);
+                                               : new MockHttpContextNewContainer(userName: userName, verb: verb, userHostAddress: userHostAddress);
             }
             else if (cookies == null)
             {
-                controllerEx.MockContext = useHttpContextConstructor == false ? new MockHttpContextContainer(userHostAddress) : new MockHttpContextNewContainer(url, queryString, userHostAddress);
+                controllerEx.MockContext = useHttpContextConstructor == false ? new MockHttpContextContainer(userHostAddress) : new MockHttpContextNewContainer(url, userHostAddress);
             }
             else
             {

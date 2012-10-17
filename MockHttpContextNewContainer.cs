@@ -65,7 +65,7 @@ namespace MVCWhenThenFramework
 
             InitMocksOfMocks();
 
-            HttpContext context = HttpContext();
+            HttpContext context = HttpContext(userHostAddress:userHostAddress);
 
             // --------------------------Setup Mock of Mocks 
 
@@ -152,7 +152,7 @@ namespace MVCWhenThenFramework
 
         }
 
-        public MockHttpContextNewContainer(string url, string queryString, string userHostAddress)
+        public MockHttpContextNewContainer(string url, string userHostAddress)
         {
             // Instantiate variables
             HttpCookieCollection cookies = new HttpCookieCollection();
@@ -161,7 +161,7 @@ namespace MVCWhenThenFramework
             // Instantiate Partial Mock of Mocks
             InitMocksOfMocks();
 
-            HttpContext context = HttpContext(url);
+            HttpContext context = HttpContext(userHostAddress, url);
 
             // --------------------------Setup Mock of Mocks 
 
@@ -184,11 +184,11 @@ namespace MVCWhenThenFramework
 
             SetMockRequestForm(formData);
 
-            if(!string.IsNullOrEmpty(queryString))
-            {
-                MockRequest.Setup(r => r.Object.QueryString).Returns(HttpUtility.ParseQueryString(queryString));
-                //MockRequest.Setup(r => r.Object.QueryString).Returns(request.QueryString);
-            }
+            //if(!string.IsNullOrEmpty(queryString))
+            //{
+            //    MockRequest.Setup(r => r.Object.QueryString).Returns(HttpUtility.ParseQueryString(queryString));
+            //    //MockRequest.Setup(r => r.Object.QueryString).Returns(request.QueryString);
+            //}
 
             if (!string.IsNullOrEmpty(url))
             {
@@ -268,7 +268,7 @@ namespace MVCWhenThenFramework
 
             InitMocksOfMocks();
 
-            HttpContext context = HttpContext();
+            HttpContext context = HttpContext(userHostAddress:userHostAddress);
 
             // --------------------------Setup Mock of Mocks 
 
@@ -532,11 +532,11 @@ namespace MVCWhenThenFramework
         }
 
 
-        private static HttpContext HttpContext(string url = "http://google.com")
+        private static HttpContext HttpContext(string userHostAddress, string url = "http://google.com")
         {
             // Using HttpContext private constructor
             // Instantiate an HttpContext, HttpRequest, HttpResponse, and HttpContextSession
-            HttpContext context = MockHttpContext.FakeHttpContext(url:url);
+            HttpContext context = MockHttpContext.FakeHttpContext(url: url, userHostAddress: userHostAddress);
             // Assign the Session HttpContext to the static Request HttpContext
             System.Web.HttpContext.Current = context;
             return context;
